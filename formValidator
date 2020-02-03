@@ -1,0 +1,60 @@
+/**
+ * Form Validation
+ * Source: https://www.w3resource.com/javascript/form/javascript-form-validation.php
+ */
+
+
+function ValidateIPaddress(fieldId) {
+    if (/^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(document.getElementById(fieldId).value)) {
+        return (true); // -> Valid IP Adress
+    }
+    return (false); // -> Invalid IP Adress
+}
+
+
+function cardnumberAE(fieldId) {
+    // -> Validate American Express Credit Cart Number
+    var cardno = /^(?:3[47][0-9]{13})$/;
+    if (fieldId.value.match(cardno)) {
+        return true; // -> Valid
+    }
+    else {
+        return false;
+    }
+}
+
+
+function cardnumberVisa(fieldId) {
+    // -> Validate Visa Credit Cart Number
+    var cardno = /^(?:4[0-9]{12}(?:[0-9]{3})?)$/;
+    if (fieldId.value.match(cardno)) {
+        return true; // -> Valid
+    }
+    else {
+        return false;
+    }
+}
+
+
+function cardnumberMaster(fieldId) {
+    // -> Validate Mastercard Credit Cart Number
+    var cardno = /^(?:5[1-5][0-9]{14})$/;
+    if (fieldId.value.match(cardno)) {
+        return true; // -> Valid
+    }
+    else {
+        return false;
+    }
+}
+
+function ValidateEmail(fieldId) {
+    var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    if (fieldId.value.match(mailformat)) {
+        return true; // -> Valid
+    }
+    else {
+        return false;
+    }
+}
+
+
