@@ -55,6 +55,29 @@ function ValidateEmail(fieldId) {
     else {
         return false;
     }
+
+    // -> https://stackoverflow.com/questions/2049502/what-characters-are-allowed-in-an-email-address
 }
 
 
+// -> With Turkish Characters Support
+function ValidateAlpha(fieldId) {
+    var letters = /^[A-Za-zğüşöçİĞÜŞÖÇ]+$/;
+    if (document.getElementById(fieldId).value.match(letters)) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
+
+function ValidateNumeric(fieldId) {
+    var numbers = /^[0-9]+$/;
+    if (document.getElementById(fieldId).value.match(numbers)) {
+        return true;
+    }
+    else {
+        return false;
+    }
+} 
