@@ -4,7 +4,7 @@
  */
 
 
-function ValidateIPaddress(fieldId) {
+function ValidateIpAddress(fieldId) {
     if (/^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(document.getElementById(fieldId).value)) {
         return (true); // -> Valid IP Adress
     }
@@ -12,7 +12,7 @@ function ValidateIPaddress(fieldId) {
 }
 
 
-function cardnumberAE(fieldId) {
+function cardNumberAE(fieldId) {
     // -> Validate American Express Credit Cart Number
     var cardno = /^(?:3[47][0-9]{13})$/;
     if (document.getElementById(fieldId).value.match(cardno)) {
@@ -24,7 +24,7 @@ function cardnumberAE(fieldId) {
 }
 
 
-function cardnumberVisa(fieldId) {
+function cardNumberVisa(fieldId) {
     // -> Validate Visa Credit Cart Number
     var cardno = /^(?:4[0-9]{12}(?:[0-9]{3})?)$/;
     if (document.getElementById(fieldId).value.match(cardno)) {
@@ -36,7 +36,7 @@ function cardnumberVisa(fieldId) {
 }
 
 
-function cardnumberMaster(fieldId) {
+function cardNumberMaster(fieldId) {
     // -> Validate Mastercard Credit Cart Number
     var cardno = /^(?:5[1-5][0-9]{14})$/;
     if (document.getElementById(fieldId).value.match(cardno)) {
@@ -80,4 +80,49 @@ function ValidateNumeric(fieldId) {
     else {
         return false;
     }
-} 
+}
+
+function ValidateNumericPlusMinus(inputtxt) {
+    var numbers = /^[-+]?[0-9]+$/;
+    if (document.getElementById(fieldId).value.match(numbers)) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
+
+// -> With Turkish Characters Support
+function ValidateAlphaNumeric(fieldId) {
+    var letters = /^[0-9a-zA-ZğüşöçİĞÜŞÖÇ]+$/;
+    if (document.getElementById(fieldId).value.match(letters)) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
+
+function ValidateDecimal(fieldId) {
+    var decimal = /^[-+]?[0-9]+\.[0-9]+$/;
+    if (document.getElementById(fieldId).value.match(decimal)) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
+
+function ValidatePhoneNumber(fieldId) {
+    var phoneno = /^\d{12}$/;
+    if (document.getElementById(fieldId).value.match(phoneno)){
+        return true;
+    }
+    else {
+        return false;
+    }
+    // -> https://www.w3resource.com/javascript/form/phone-no-validation.php
+}
