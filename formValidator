@@ -15,7 +15,7 @@ function ValidateIPaddress(fieldId) {
 function cardnumberAE(fieldId) {
     // -> Validate American Express Credit Cart Number
     var cardno = /^(?:3[47][0-9]{13})$/;
-    if (fieldId.value.match(cardno)) {
+    if (document.getElementById(fieldId).value.match(cardno)) {
         return true; // -> Valid
     }
     else {
@@ -27,7 +27,7 @@ function cardnumberAE(fieldId) {
 function cardnumberVisa(fieldId) {
     // -> Validate Visa Credit Cart Number
     var cardno = /^(?:4[0-9]{12}(?:[0-9]{3})?)$/;
-    if (fieldId.value.match(cardno)) {
+    if (document.getElementById(fieldId).value.match(cardno)) {
         return true; // -> Valid
     }
     else {
@@ -39,7 +39,7 @@ function cardnumberVisa(fieldId) {
 function cardnumberMaster(fieldId) {
     // -> Validate Mastercard Credit Cart Number
     var cardno = /^(?:5[1-5][0-9]{14})$/;
-    if (fieldId.value.match(cardno)) {
+    if (document.getElementById(fieldId).value.match(cardno)) {
         return true; // -> Valid
     }
     else {
@@ -49,7 +49,7 @@ function cardnumberMaster(fieldId) {
 
 function ValidateEmail(fieldId) {
     var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-    if (fieldId.value.match(mailformat)) {
+    if (document.getElementById(fieldId).value.match(mailformat)) {
         return true; // -> Valid
     }
     else {
