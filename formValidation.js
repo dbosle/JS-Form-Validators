@@ -12,7 +12,6 @@ class formValidation {
         else {
             this.formId = formId;
             //-> Form Id for check validation
-            console.log(this.formId);
         }
 
         if (typeof (paintStatus) == "undefined") {
@@ -31,7 +30,7 @@ class formValidation {
             this.errorBorderColor = errorBorderColor;
         }
 
-        this.valid = false;   //-> Validation Status
+        this.isValid = false;   //-> Validation Status
         this.invalidCounts = 0;
         this.errors = [];
 
@@ -290,12 +289,20 @@ class formValidation {
 
         this.invalidCounts = 0;
         this.errors = [];
+        let fieldId = "";
 
         for (let i = 0; i < document.forms[formId].length; i++) {
 
             if (document.forms[formId][i] == null) {
                 continue;
             }
+
+            if(document.forms[formId][i].id == ""){
+                continue;
+            }
+
+            fieldId = document.forms[formId][i].id;
+            
             if (this.checkRequiredField(document.forms[formId][i].id)) {
 
                 if (document.forms[formId][i].validity.valid) {
@@ -334,9 +341,9 @@ class formValidation {
                             case "date":
 
                                 break;
-
+                            
                             case "url":
-                                if (!this.validateUrl(value)) {
+                                if (!this.validateUrl(fieldId)) {
                                     this.paintBorderById(document.forms[formId][i].id, errorColor);
                                     this.errors.push({
                                         fieldId: document.forms[formId][i].id,
@@ -344,9 +351,10 @@ class formValidation {
                                     });
                                 }
                                 break;
-
+                            
                             case "email":
-                                if (!this.validateEmail(value)) {
+                                console.log("Kontol dilecekk değer : "+ fieldId);
+                                if (!this.validateEmail(fieldId)) {
                                     this.paintBorderById(document.forms[formId][i].id, errorColor);
                                     this.errors.push({
                                         fieldId: document.forms[formId][i].id,
@@ -354,9 +362,9 @@ class formValidation {
                                     });
                                 }
                                 break;
-
+                            
                             case "numeric":
-                                if (!this.validateNumeric(value)) {
+                                if (!this.validateNumeric(fieldId)) {
                                     this.paintBorderById(document.forms[formId][i].id, errorColor);
                                     this.errors.push({
                                         fieldId: document.forms[formId][i].id,
@@ -364,9 +372,9 @@ class formValidation {
                                     });
                                 }
                                 break;
-
+                            
                             case "numericplusminus":
-                                if (!this.validateNumericPlusMinus(value)) {
+                                if (!this.validateNumericPlusMinus(fieldId)) {
                                     this.paintBorderById(document.forms[formId][i].id, errorColor);
                                     this.errors.push({
                                         fieldId: document.forms[formId][i].id,
@@ -374,9 +382,9 @@ class formValidation {
                                     });
                                 }
                                 break;
-
+                            
                             case "word":
-                                if (!this.validateAlpha(value)) {
+                                if (!this.validateAlpha(fieldId)) {
                                     this.paintBorderById(document.forms[formId][i].id, errorColor);
                                     this.errors.push({
                                         fieldId: document.forms[formId][i].id,
@@ -384,9 +392,9 @@ class formValidation {
                                     });
                                 }
                                 break;
-
+                            
                             case "sentence":
-                                if (!this.validateAlphaWithSpace(value)) {
+                                if (!this.validateAlphaWithSpace(fieldId)) {
                                     this.paintBorderById(document.forms[formId][i].id, errorColor);
                                     this.errors.push({
                                         fieldId: document.forms[formId][i].id,
@@ -394,9 +402,9 @@ class formValidation {
                                     });
                                 }
                                 break;
-
+                            
                             case "paragraph":
-                                if (!this.validateParagraph(value)) {
+                                if (!this.validateParagraph(fieldId)) {
                                     this.paintBorderById(document.forms[formId][i].id, errorColor);
                                     this.errors.push({
                                         fieldId: document.forms[formId][i].id,
@@ -404,9 +412,9 @@ class formValidation {
                                     });
                                 }
                                 break;
-
+                            
                             case "alphanum":
-                                if (!this.validateAlphaNumeric(value)) {
+                                if (!this.validateAlphaNumeric(fieldId)) {
                                     this.paintBorderById(document.forms[formId][i].id, errorColor);
                                     this.errors.push({
                                         fieldId: document.forms[formId][i].id,
@@ -414,9 +422,9 @@ class formValidation {
                                     });
                                 }
                                 break;
-
+                            
                             case "alphanumspace":
-                                if (!this.validateAlphaNumericWithSpace(value)) {
+                                if (!this.validateAlphaNumericWithSpace(fieldId)) {
                                     this.paintBorderById(document.forms[formId][i].id, errorColor);
                                     this.errors.push({
                                         fieldId: document.forms[formId][i].id,
@@ -424,9 +432,9 @@ class formValidation {
                                     });
                                 }
                                 break;
-
+                            
                             case "alphanumspacetire":
-                                if (!this.validateAlphaNumericWithSpaceTire(value)) {
+                                if (!this.validateAlphaNumericWithSpaceTire(fieldId)) {
                                     this.paintBorderById(document.forms[formId][i].id, errorColor);
                                     this.errors.push({
                                         fieldId: document.forms[formId][i].id,
@@ -434,9 +442,9 @@ class formValidation {
                                     });
                                 }
                                 break;
-
+                            
                             case "adres":
-                                if (!this.validateAdress(value)) {
+                                if (!this.validateAdress(fieldId)) {
                                     this.paintBorderById(document.forms[formId][i].id, errorColor);
                                     this.errors.push({
                                         fieldId: document.forms[formId][i].id,
@@ -444,9 +452,9 @@ class formValidation {
                                     });
                                 }
                                 break;
-
+                            
                             case "ip":
-                                if (!this.validateIpAddress(value)) {
+                                if (!this.validateIpAddress(fieldId)) {
                                     this.paintBorderById(document.forms[formId][i].id, errorColor);
                                     this.errors.push({
                                         fieldId: document.forms[formId][i].id,
@@ -454,9 +462,9 @@ class formValidation {
                                     });
                                 }
                                 break;
-
+                            
                             case "aecard":
-                                if (!this.validateCardNumberAE(value)) {
+                                if (!this.validateCardNumberAE(fieldId)) {
                                     this.paintBorderById(document.forms[formId][i].id, errorColor);
                                     this.errors.push({
                                         fieldId: document.forms[formId][i].id,
@@ -464,9 +472,9 @@ class formValidation {
                                     });
                                 }
                                 break;
-
+                            
                             case "mastercard":
-                                if (!this.validateCardNumberMaster(value)) {
+                                if (!this.validateCardNumberMaster(fieldId)) {
                                     this.paintBorderById(document.forms[formId][i].id, errorColor);
                                     this.errors.push({
                                         fieldId: document.forms[formId][i].id,
@@ -474,9 +482,9 @@ class formValidation {
                                     });
                                 }
                                 break;
-
+                            
                             case "visacard":
-                                if (!this.validateCardNumberVisa(value)) {
+                                if (!this.validateCardNumberVisa(fieldId)) {
                                     this.paintBorderById(document.forms[formId][i].id, errorColor);
                                     this.errors.push({
                                         fieldId: document.forms[formId][i].id,
@@ -484,12 +492,12 @@ class formValidation {
                                     });
                                 }
                                 break;
-
+                            
                             case "creditcard":
                                 if (
-                                    this.validateCardNumberAE(value) ||
-                                    this.validateCardNumberMaster(value) ||
-                                    this.validateCardNumberVisa(value)
+                                    this.validateCardNumberAE(fieldId) ||
+                                    this.validateCardNumberMaster(fieldId) ||
+                                    this.validateCardNumberVisa(fieldId)
                                 ) {
                                     this.paintBorderById(document.forms[formId][i].id, "");
                                 }
@@ -502,9 +510,9 @@ class formValidation {
                                     
                                 }
                                 break;
-
+                            
                             case "decimal":
-                                if (!this.validateDecimal(value)) {
+                                if (!this.validateDecimal(fieldId)) {
                                     this.paintBorderById(document.forms[formId][i].id, errorColor);
                                     this.errors.push({
                                         fieldId: document.forms[formId][i].id,
@@ -513,9 +521,9 @@ class formValidation {
                                 }
                                 //-> 14.55 gibi
                                 break;
-
+                            
                             case "phone":
-                                if (!this.validatePhoneNumber(value)) {
+                                if (!this.validatePhoneNumber(fieldId)) {
                                     this.paintBorderById(document.forms[formId][i].id, errorColor);
                                     this.errors.push({
                                         fieldId: document.forms[formId][i].id,
@@ -542,10 +550,10 @@ class formValidation {
         }
 
         if (this.invalidCounts > 0) {
-            this.valid = false;
+            this.isValid = false;
         }
         else {
-            this.valid = true;
+            this.isValid = true;
         }
     }
 
