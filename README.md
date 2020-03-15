@@ -36,7 +36,7 @@ data-valid="phone"             //-> Numeric maximum 12 digits
 
 
 
-## data-valid-min and data-valid-max
+## data-valid-min & data-valid-max
 ```
 <input type="tel" data-valid="phone" data-valid-min="9" data-valid-max="12" />
 ```
