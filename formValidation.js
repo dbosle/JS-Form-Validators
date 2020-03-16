@@ -296,11 +296,7 @@ class formValidation {
 
         for (let i = 0; i < document.forms[formId].length; i++) {
 
-            if (document.forms[formId][i] == null) {
-                continue;
-            }
-
-            if (document.forms[formId][i].id == "") {
+            if (document.forms[formId][i] == null || document.forms[formId][i].id == "") {
                 continue;
             }
 
@@ -309,7 +305,7 @@ class formValidation {
 
             if (this.checkRequiredField(document.forms[formId][i].id)) {
 
-                this.paintBorderById(fieldId, "");
+                this.paintBorderById(fieldId, ""); //-> Set Default Border Color: None
 
                 //if (document.forms[formId][i].validity.valid) {
 
@@ -335,6 +331,18 @@ class formValidation {
                             fieldId: document.forms[formId][i].id,
                             message: "Veri çok uzun"
                         });
+                    }
+                }
+
+                if (
+                    document.forms[formId][i].localName == "select" &&
+                    typeof (document.forms[formId][i][0]) != "undefined" &&
+                    document.forms[formId][i].className.includes("select2")
+                ) {
+                    //-> or document.forms[formId][i][0].validity.valid kontrolü
+                    if(document.forms[formId][i].value == ""){
+                        this.paintBorderById(document.forms[formId][i].id, errorColor);
+                        continue;
                     }
                 }
 
@@ -556,17 +564,6 @@ class formValidation {
                         });
                     } 
                 }//if
-
-                /*
-                } else {
-                    this.paintBorderById(document.forms[formId][i].id, errorColor);
-                    this.errors.push({
-                        fieldId: document.forms[formId][i].id,
-                        message: "Geçersiz"
-                    });
-
-                }
-                */
 
             }
 
