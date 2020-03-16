@@ -87,7 +87,7 @@ else {
 ```
 fv.isValid => boolean true|false
 fv.invalidCounts => errors count in numeric
-fv.errors => errors array with "fieldId => message" format
+fv.errors => errors array with [{fieldId : "fieldId", message : "message"}] format
 ```
 
 
