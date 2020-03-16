@@ -369,7 +369,7 @@ class formValidation {
                                 }
                                 break;
 
-                            case "numeric":
+                            case "number":
                                 if (!this.validateNumeric(fieldId)) {
                                     this.paintBorderById(document.forms[formId][i].id, errorColor);
                                     this.errors.push({
@@ -379,7 +379,7 @@ class formValidation {
                                 }
                                 break;
 
-                            case "numericplusminus":
+                            case "numberplusminus":
                                 if (!this.validateNumericPlusMinus(fieldId)) {
                                     this.paintBorderById(document.forms[formId][i].id, errorColor);
                                     this.errors.push({
