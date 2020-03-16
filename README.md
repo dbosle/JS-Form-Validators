@@ -53,7 +53,7 @@ data-valid="phone"             //-> Numeric maximum 12 digits
 ```
 <input type="tel" data-valid="phone" data-valid-min="9" data-valid-max="12" />
 ```
-* Input range must be between 9 and 12.
+* Input range must be between 9 and 12 character and numeric
 
 
 
