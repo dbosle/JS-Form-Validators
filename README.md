@@ -23,8 +23,8 @@ Javascript Form Validator
 data-valid="url"               //-> URL
 data-valid="date"              //-> Date
 data-valid="email"             //-> Email
-data-valid="numeric"           //-> Numeric
-data-valid="numericplusminus"  //-> Numeric, + and -
+data-valid="number"            //-> Numeric
+data-valid="numberplusminus"  //-> Numeric, + and -
 data-valid="word"              //-> Alphabetical
 data-valid="sentence"          //-> Alphabetical and space
 data-valid="sentencepoint"     //-> Alphabetical, space and point
