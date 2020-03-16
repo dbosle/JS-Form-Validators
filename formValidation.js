@@ -311,245 +311,253 @@ class formValidation {
 
                 this.paintBorderById(fieldId, "");
 
-                if (document.forms[formId][i].validity.valid) {
+                //if (document.forms[formId][i].validity.valid) {
 
-                    let minLength, maxLength;
-                    let value = document.forms[formId][i].value;
+                let minLength, maxLength;
+                let value = document.forms[formId][i].value;
 
-                    if (typeof (document.getElementById(document.forms[formId][i].id).dataset.validMin) != "undefined") {
-                        minLength = document.getElementById(document.forms[formId][i].id).dataset.validMin;
-                        if (value.length < minLength) {
-                            this.paintBorderById(document.forms[formId][i].id, errorColor);
-                            this.errors.push({
-                                fieldId: document.forms[formId][i].id,
-                                message: "Veri çok kısa"
-                            });
-                        }
+                if (typeof (document.getElementById(document.forms[formId][i].id).dataset.validMin) != "undefined") {
+                    minLength = document.getElementById(document.forms[formId][i].id).dataset.validMin;
+                    if (value.length < minLength) {
+                        this.paintBorderById(document.forms[formId][i].id, errorColor);
+                        this.errors.push({
+                            fieldId: document.forms[formId][i].id,
+                            message: "Veri çok kısa"
+                        });
+                    }
+                }
+
+                if (typeof (document.getElementById(document.forms[formId][i].id).dataset.validMax) != "undefined") {
+                    maxLength = document.getElementById(document.forms[formId][i].id).dataset.validMax;
+                    if (value.length > maxLength) {
+                        this.paintBorderById(document.forms[formId][i].id, errorColor);
+                        this.errors.push({
+                            fieldId: document.forms[formId][i].id,
+                            message: "Veri çok uzun"
+                        });
+                    }
+                }
+
+
+                //-> Burada aşağıdaki validationlar olacak.
+                //-> Bu validationlardan dönen sonuca göre bir durum olacak.
+                if (typeof (document.getElementById(document.forms[formId][i].id).dataset.valid) != "undefined") {
+                    switch (document.getElementById(document.forms[formId][i].id).dataset.valid) {
+
+                        case "date":
+
+                            break;
+
+                        case "url":
+                            if (!this.validateUrl(fieldId)) {
+                                this.paintBorderById(document.forms[formId][i].id, errorColor);
+                                this.errors.push({
+                                    fieldId: document.forms[formId][i].id,
+                                    message: "Geçerli bir url giriniz"
+                                });
+                            }
+                            break;
+
+                        case "email":
+                            console.log("Kontol dilecekk değer : " + fieldId);
+                            if (!this.validateEmail(fieldId)) {
+                                this.paintBorderById(document.forms[formId][i].id, errorColor);
+                                this.errors.push({
+                                    fieldId: document.forms[formId][i].id,
+                                    message: "Geçerli bir email giriniz"
+                                });
+                            }
+                            break;
+
+                        case "number":
+                            if (!this.validateNumeric(fieldId)) {
+                                this.paintBorderById(document.forms[formId][i].id, errorColor);
+                                this.errors.push({
+                                    fieldId: document.forms[formId][i].id,
+                                    message: "Geçerli bir sayı giriniz"
+                                });
+                            }
+                            break;
+
+                        case "numberplusminus":
+                            if (!this.validateNumericPlusMinus(fieldId)) {
+                                this.paintBorderById(document.forms[formId][i].id, errorColor);
+                                this.errors.push({
+                                    fieldId: document.forms[formId][i].id,
+                                    message: "Geçerli bir sayı giriniz"
+                                });
+                            }
+                            break;
+
+                        case "word":
+                            if (!this.validateAlpha(fieldId)) {
+                                this.paintBorderById(document.forms[formId][i].id, errorColor);
+                                this.errors.push({
+                                    fieldId: document.forms[formId][i].id,
+                                    message: "Sadece harf giriniz"
+                                });
+                            }
+                            break;
+
+                        case "sentence":
+                            if (!this.validateAlphaWithSpace(fieldId)) {
+                                this.paintBorderById(document.forms[formId][i].id, errorColor);
+                                this.errors.push({
+                                    fieldId: document.forms[formId][i].id,
+                                    message: "Sadece harf ve boşluk kullanabilirsiniz"
+                                });
+                            }
+                            break;
+
+                        case "sentencepoint":
+                            if (!this.validateAlphaWithSpacePoint(fieldId)) {
+                                this.paintBorderById(document.forms[formId][i].id, errorColor);
+                                this.errors.push({
+                                    fieldId: document.forms[formId][i].id,
+                                    message: "Sadece harf, boşluk ve nokta kullanabilirsiniz"
+                                });
+                            }
+                            break;
+
+                        case "paragraph":
+                            if (!this.validateParagraph(fieldId)) {
+                                this.paintBorderById(document.forms[formId][i].id, errorColor);
+                                this.errors.push({
+                                    fieldId: document.forms[formId][i].id,
+                                    message: "Sadece harf, sayı, boşluk ve .,/-\\:;\"'() karakterleri girebilirsiniz"
+                                });
+                            }
+                            break;
+
+                        case "alphanum":
+                            if (!this.validateAlphaNumeric(fieldId)) {
+                                this.paintBorderById(document.forms[formId][i].id, errorColor);
+                                this.errors.push({
+                                    fieldId: document.forms[formId][i].id,
+                                    message: "Sadece harf ve sayı kullanabilirsiniz"
+                                });
+                            }
+                            break;
+
+                        case "alphanumspace":
+                            if (!this.validateAlphaNumericWithSpace(fieldId)) {
+                                this.paintBorderById(document.forms[formId][i].id, errorColor);
+                                this.errors.push({
+                                    fieldId: document.forms[formId][i].id,
+                                    message: "Sadece harf, sayı ve boşluk kullanabilirsiniz"
+                                });
+                            }
+                            break;
+
+                        case "alphanumspacetire":
+                            if (!this.validateAlphaNumericWithSpaceTire(fieldId)) {
+                                this.paintBorderById(document.forms[formId][i].id, errorColor);
+                                this.errors.push({
+                                    fieldId: document.forms[formId][i].id,
+                                    message: "Sadece harf, sayı, boşluk ve tire(-) kullanabilirsiniz"
+                                });
+                            }
+                            break;
+
+                        case "adres":
+                            if (!this.validateAdress(fieldId)) {
+                                this.paintBorderById(document.forms[formId][i].id, errorColor);
+                                this.errors.push({
+                                    fieldId: document.forms[formId][i].id,
+                                    message: "Sadece harf, sayı, boşluk ve .,/-\\:;\"'() karakterleri girebilirsiniz"
+                                });
+                            }
+                            break;
+
+                        case "ip":
+                            if (!this.validateIpAddress(fieldId)) {
+                                this.paintBorderById(document.forms[formId][i].id, errorColor);
+                                this.errors.push({
+                                    fieldId: document.forms[formId][i].id,
+                                    message: "Geçerli bir ip adresi giriniz (Ör: 198.149.24.45)"
+                                });
+                            }
+                            break;
+
+                        case "aecard":
+                            if (!this.validateCardNumberAE(fieldId)) {
+                                this.paintBorderById(document.forms[formId][i].id, errorColor);
+                                this.errors.push({
+                                    fieldId: document.forms[formId][i].id,
+                                    message: "Geçerli bir American Express kart numarası giriniz"
+                                });
+                            }
+                            break;
+
+                        case "mastercard":
+                            if (!this.validateCardNumberMaster(fieldId)) {
+                                this.paintBorderById(document.forms[formId][i].id, errorColor);
+                                this.errors.push({
+                                    fieldId: document.forms[formId][i].id,
+                                    message: "Geçerli bir Master Kart numarası giriniz"
+                                });
+                            }
+                            break;
+
+                        case "visacard":
+                            if (!this.validateCardNumberVisa(fieldId)) {
+                                this.paintBorderById(document.forms[formId][i].id, errorColor);
+                                this.errors.push({
+                                    fieldId: document.forms[formId][i].id,
+                                    message: "Geçerli bir Visa Kart numarası giriniz"
+                                });
+                            }
+                            break;
+
+                        case "creditcard":
+                            if (
+                                this.validateCardNumberAE(fieldId) ||
+                                this.validateCardNumberMaster(fieldId) ||
+                                this.validateCardNumberVisa(fieldId)
+                            ) {
+                                this.paintBorderById(document.forms[formId][i].id, "");
+                            }
+                            else {
+                                this.paintBorderById(document.forms[formId][i].id, errorColor);
+                                this.errors.push({
+                                    fieldId: document.forms[formId][i].id,
+                                    message: "Geçerli bir kart numarası giriniz"
+                                });
+                            }
+                            break;
+
+                        case "decimal":
+                            if (!this.validateDecimal(fieldId)) {
+                                this.paintBorderById(document.forms[formId][i].id, errorColor);
+                                this.errors.push({
+                                    fieldId: document.forms[formId][i].id,
+                                    message: "Geçerli bir ondalık sayı giriniz. Nokta ile ayırabilirsiniz"
+                                });
+                            }
+                            //-> 14.55 gibi
+                            break;
+
+                        case "phone":
+                            if (!this.validateNumeric(fieldId)) {
+                                this.paintBorderById(document.forms[formId][i].id, errorColor);
+                                this.errors.push({
+                                    fieldId: document.forms[formId][i].id,
+                                    message: "Geçerli bir telefon giriniz"
+                                });
+                            }
+                            break;
                     }
 
-                    if (typeof (document.getElementById(document.forms[formId][i].id).dataset.validMax) != "undefined") {
-                        maxLength = document.getElementById(document.forms[formId][i].id).dataset.validMax;
-                        if (value.length > maxLength) {
-                            this.paintBorderById(document.forms[formId][i].id, errorColor);
-                            this.errors.push({
-                                fieldId: document.forms[formId][i].id,
-                                message: "Veri çok uzun"
-                            });
-                        }
-                    }
+                    if (!document.forms[formId][i].validity.valid) {
+                        this.paintBorderById(document.forms[formId][i].id, errorColor);
+                        this.errors.push({
+                            fieldId: document.forms[formId][i].id,
+                            message: "Geçersiz"
+                        });
+                    } 
+                }//if
 
-
-                    //-> Burada aşağıdaki validationlar olacak.
-                    //-> Bu validationlardan dönen sonuca göre bir durum olacak.
-                    if (typeof (document.getElementById(document.forms[formId][i].id).dataset.valid) != "undefined") {
-                        switch (document.getElementById(document.forms[formId][i].id).dataset.valid) {
-
-                            case "date":
-
-                                break;
-
-                            case "url":
-                                if (!this.validateUrl(fieldId)) {
-                                    this.paintBorderById(document.forms[formId][i].id, errorColor);
-                                    this.errors.push({
-                                        fieldId: document.forms[formId][i].id,
-                                        message: "Geçerli bir url giriniz"
-                                    });
-                                }
-                                break;
-
-                            case "email":
-                                console.log("Kontol dilecekk değer : " + fieldId);
-                                if (!this.validateEmail(fieldId)) {
-                                    this.paintBorderById(document.forms[formId][i].id, errorColor);
-                                    this.errors.push({
-                                        fieldId: document.forms[formId][i].id,
-                                        message: "Geçerli bir email giriniz"
-                                    });
-                                }
-                                break;
-
-                            case "number":
-                                if (!this.validateNumeric(fieldId)) {
-                                    this.paintBorderById(document.forms[formId][i].id, errorColor);
-                                    this.errors.push({
-                                        fieldId: document.forms[formId][i].id,
-                                        message: "Geçerli bir sayı giriniz"
-                                    });
-                                }
-                                break;
-
-                            case "numberplusminus":
-                                if (!this.validateNumericPlusMinus(fieldId)) {
-                                    this.paintBorderById(document.forms[formId][i].id, errorColor);
-                                    this.errors.push({
-                                        fieldId: document.forms[formId][i].id,
-                                        message: "Geçerli bir sayı giriniz"
-                                    });
-                                }
-                                break;
-
-                            case "word":
-                                if (!this.validateAlpha(fieldId)) {
-                                    this.paintBorderById(document.forms[formId][i].id, errorColor);
-                                    this.errors.push({
-                                        fieldId: document.forms[formId][i].id,
-                                        message: "Sadece harf giriniz"
-                                    });
-                                }
-                                break;
-
-                            case "sentence":
-                                if (!this.validateAlphaWithSpace(fieldId)) {
-                                    this.paintBorderById(document.forms[formId][i].id, errorColor);
-                                    this.errors.push({
-                                        fieldId: document.forms[formId][i].id,
-                                        message: "Sadece harf ve boşluk kullanabilirsiniz"
-                                    });
-                                }
-                                break;
-
-                            case "sentencepoint":
-                                if (!this.validateAlphaWithSpacePoint(fieldId)) {
-                                    this.paintBorderById(document.forms[formId][i].id, errorColor);
-                                    this.errors.push({
-                                        fieldId: document.forms[formId][i].id,
-                                        message: "Sadece harf, boşluk ve nokta kullanabilirsiniz"
-                                    });
-                                }
-                                break;
-
-                            case "paragraph":
-                                if (!this.validateParagraph(fieldId)) {
-                                    this.paintBorderById(document.forms[formId][i].id, errorColor);
-                                    this.errors.push({
-                                        fieldId: document.forms[formId][i].id,
-                                        message: "Sadece harf, sayı, boşluk ve .,/-\\:;\"'() karakterleri girebilirsiniz"
-                                    });
-                                }
-                                break;
-
-                            case "alphanum":
-                                if (!this.validateAlphaNumeric(fieldId)) {
-                                    this.paintBorderById(document.forms[formId][i].id, errorColor);
-                                    this.errors.push({
-                                        fieldId: document.forms[formId][i].id,
-                                        message: "Sadece harf ve sayı kullanabilirsiniz"
-                                    });
-                                }
-                                break;
-
-                            case "alphanumspace":
-                                if (!this.validateAlphaNumericWithSpace(fieldId)) {
-                                    this.paintBorderById(document.forms[formId][i].id, errorColor);
-                                    this.errors.push({
-                                        fieldId: document.forms[formId][i].id,
-                                        message: "Sadece harf, sayı ve boşluk kullanabilirsiniz"
-                                    });
-                                }
-                                break;
-
-                            case "alphanumspacetire":
-                                if (!this.validateAlphaNumericWithSpaceTire(fieldId)) {
-                                    this.paintBorderById(document.forms[formId][i].id, errorColor);
-                                    this.errors.push({
-                                        fieldId: document.forms[formId][i].id,
-                                        message: "Sadece harf, sayı, boşluk ve tire(-) kullanabilirsiniz"
-                                    });
-                                }
-                                break;
-
-                            case "adres":
-                                if (!this.validateAdress(fieldId)) {
-                                    this.paintBorderById(document.forms[formId][i].id, errorColor);
-                                    this.errors.push({
-                                        fieldId: document.forms[formId][i].id,
-                                        message: "Sadece harf, sayı, boşluk ve .,/-\\:;\"'() karakterleri girebilirsiniz"
-                                    });
-                                }
-                                break;
-
-                            case "ip":
-                                if (!this.validateIpAddress(fieldId)) {
-                                    this.paintBorderById(document.forms[formId][i].id, errorColor);
-                                    this.errors.push({
-                                        fieldId: document.forms[formId][i].id,
-                                        message: "Geçerli bir ip adresi giriniz (Ör: 198.149.24.45)"
-                                    });
-                                }
-                                break;
-
-                            case "aecard":
-                                if (!this.validateCardNumberAE(fieldId)) {
-                                    this.paintBorderById(document.forms[formId][i].id, errorColor);
-                                    this.errors.push({
-                                        fieldId: document.forms[formId][i].id,
-                                        message: "Geçerli bir American Express kart numarası giriniz"
-                                    });
-                                }
-                                break;
-
-                            case "mastercard":
-                                if (!this.validateCardNumberMaster(fieldId)) {
-                                    this.paintBorderById(document.forms[formId][i].id, errorColor);
-                                    this.errors.push({
-                                        fieldId: document.forms[formId][i].id,
-                                        message: "Geçerli bir Master Kart numarası giriniz"
-                                    });
-                                }
-                                break;
-
-                            case "visacard":
-                                if (!this.validateCardNumberVisa(fieldId)) {
-                                    this.paintBorderById(document.forms[formId][i].id, errorColor);
-                                    this.errors.push({
-                                        fieldId: document.forms[formId][i].id,
-                                        message: "Geçerli bir Visa Kart numarası giriniz"
-                                    });
-                                }
-                                break;
-
-                            case "creditcard":
-                                if (
-                                    this.validateCardNumberAE(fieldId) ||
-                                    this.validateCardNumberMaster(fieldId) ||
-                                    this.validateCardNumberVisa(fieldId)
-                                ) {
-                                    this.paintBorderById(document.forms[formId][i].id, "");
-                                }
-                                else {
-                                    this.paintBorderById(document.forms[formId][i].id, errorColor);
-                                    this.errors.push({
-                                        fieldId: document.forms[formId][i].id,
-                                        message: "Geçerli bir kart numarası giriniz"
-                                    });
-                                }
-                                break;
-
-                            case "decimal":
-                                if (!this.validateDecimal(fieldId)) {
-                                    this.paintBorderById(document.forms[formId][i].id, errorColor);
-                                    this.errors.push({
-                                        fieldId: document.forms[formId][i].id,
-                                        message: "Geçerli bir ondalık sayı giriniz. Nokta ile ayırabilirsiniz"
-                                    });
-                                }
-                                //-> 14.55 gibi
-                                break;
-
-                            case "phone":
-                                if (!this.validateAlphaNumeric(fieldId)) {
-                                    this.paintBorderById(document.forms[formId][i].id, errorColor);
-                                    this.errors.push({
-                                        fieldId: document.forms[formId][i].id,
-                                        message: "Geçerli bir telefon giriniz"
-                                    });
-                                }
-                                break;
-                        }
-                    }//if
-
-
+                /*
                 } else {
                     this.paintBorderById(document.forms[formId][i].id, errorColor);
                     this.errors.push({
@@ -558,6 +566,7 @@ class formValidation {
                     });
 
                 }
+                */
 
             }
 
