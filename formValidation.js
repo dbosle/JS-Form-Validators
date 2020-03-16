@@ -1,6 +1,9 @@
 /**
  * Form Validation
  * Source: https://www.w3resource.com/javascript/form/javascript-form-validation.php
+ * 
+ * Her form elementine input filter girileceeek
+ * Ve o elemandan uzaklaşınca hemen kontrole sokulacak
  */
 class formValidation {
 
@@ -237,7 +240,7 @@ class formValidation {
             if (errorColor != "") {
                 this.invalidCounts++;
             }
-            
+
         }
         else {
             if (
@@ -297,13 +300,16 @@ class formValidation {
                 continue;
             }
 
-            if(document.forms[formId][i].id == ""){
+            if (document.forms[formId][i].id == "") {
                 continue;
             }
 
             fieldId = document.forms[formId][i].id;
-            
+
+
             if (this.checkRequiredField(document.forms[formId][i].id)) {
+
+                this.paintBorderById(fieldId, "");
 
                 if (document.forms[formId][i].validity.valid) {
 
@@ -341,7 +347,7 @@ class formValidation {
                             case "date":
 
                                 break;
-                            
+
                             case "url":
                                 if (!this.validateUrl(fieldId)) {
                                     this.paintBorderById(document.forms[formId][i].id, errorColor);
@@ -351,9 +357,9 @@ class formValidation {
                                     });
                                 }
                                 break;
-                            
+
                             case "email":
-                                console.log("Kontol dilecekk değer : "+ fieldId);
+                                console.log("Kontol dilecekk değer : " + fieldId);
                                 if (!this.validateEmail(fieldId)) {
                                     this.paintBorderById(document.forms[formId][i].id, errorColor);
                                     this.errors.push({
@@ -362,7 +368,7 @@ class formValidation {
                                     });
                                 }
                                 break;
-                            
+
                             case "numeric":
                                 if (!this.validateNumeric(fieldId)) {
                                     this.paintBorderById(document.forms[formId][i].id, errorColor);
@@ -372,7 +378,7 @@ class formValidation {
                                     });
                                 }
                                 break;
-                            
+
                             case "numericplusminus":
                                 if (!this.validateNumericPlusMinus(fieldId)) {
                                     this.paintBorderById(document.forms[formId][i].id, errorColor);
@@ -382,7 +388,7 @@ class formValidation {
                                     });
                                 }
                                 break;
-                            
+
                             case "word":
                                 if (!this.validateAlpha(fieldId)) {
                                     this.paintBorderById(document.forms[formId][i].id, errorColor);
@@ -392,7 +398,7 @@ class formValidation {
                                     });
                                 }
                                 break;
-                            
+
                             case "sentence":
                                 if (!this.validateAlphaWithSpace(fieldId)) {
                                     this.paintBorderById(document.forms[formId][i].id, errorColor);
@@ -402,7 +408,17 @@ class formValidation {
                                     });
                                 }
                                 break;
-                            
+
+                            case "sentencepoint":
+                                if (!this.validateAlphaWithSpacePoint(fieldId)) {
+                                    this.paintBorderById(document.forms[formId][i].id, errorColor);
+                                    this.errors.push({
+                                        fieldId: document.forms[formId][i].id,
+                                        message: "Sadece harf ve boşluk kullanabilirsiniz"
+                                    });
+                                }
+                                break;
+
                             case "paragraph":
                                 if (!this.validateParagraph(fieldId)) {
                                     this.paintBorderById(document.forms[formId][i].id, errorColor);
@@ -412,7 +428,7 @@ class formValidation {
                                     });
                                 }
                                 break;
-                            
+
                             case "alphanum":
                                 if (!this.validateAlphaNumeric(fieldId)) {
                                     this.paintBorderById(document.forms[formId][i].id, errorColor);
@@ -422,7 +438,7 @@ class formValidation {
                                     });
                                 }
                                 break;
-                            
+
                             case "alphanumspace":
                                 if (!this.validateAlphaNumericWithSpace(fieldId)) {
                                     this.paintBorderById(document.forms[formId][i].id, errorColor);
@@ -432,7 +448,7 @@ class formValidation {
                                     });
                                 }
                                 break;
-                            
+
                             case "alphanumspacetire":
                                 if (!this.validateAlphaNumericWithSpaceTire(fieldId)) {
                                     this.paintBorderById(document.forms[formId][i].id, errorColor);
@@ -442,7 +458,7 @@ class formValidation {
                                     });
                                 }
                                 break;
-                            
+
                             case "adres":
                                 if (!this.validateAdress(fieldId)) {
                                     this.paintBorderById(document.forms[formId][i].id, errorColor);
@@ -452,7 +468,7 @@ class formValidation {
                                     });
                                 }
                                 break;
-                            
+
                             case "ip":
                                 if (!this.validateIpAddress(fieldId)) {
                                     this.paintBorderById(document.forms[formId][i].id, errorColor);
@@ -462,7 +478,7 @@ class formValidation {
                                     });
                                 }
                                 break;
-                            
+
                             case "aecard":
                                 if (!this.validateCardNumberAE(fieldId)) {
                                     this.paintBorderById(document.forms[formId][i].id, errorColor);
@@ -472,7 +488,7 @@ class formValidation {
                                     });
                                 }
                                 break;
-                            
+
                             case "mastercard":
                                 if (!this.validateCardNumberMaster(fieldId)) {
                                     this.paintBorderById(document.forms[formId][i].id, errorColor);
@@ -482,7 +498,7 @@ class formValidation {
                                     });
                                 }
                                 break;
-                            
+
                             case "visacard":
                                 if (!this.validateCardNumberVisa(fieldId)) {
                                     this.paintBorderById(document.forms[formId][i].id, errorColor);
@@ -492,7 +508,7 @@ class formValidation {
                                     });
                                 }
                                 break;
-                            
+
                             case "creditcard":
                                 if (
                                     this.validateCardNumberAE(fieldId) ||
@@ -502,15 +518,14 @@ class formValidation {
                                     this.paintBorderById(document.forms[formId][i].id, "");
                                 }
                                 else {
-                                        this.paintBorderById(document.forms[formId][i].id, errorColor);
-                                        this.errors.push({
-                                            fieldId: document.forms[formId][i].id,
-                                            message: "Geçerli bir kart numarası giriniz"
-                                        });
-                                    
+                                    this.paintBorderById(document.forms[formId][i].id, errorColor);
+                                    this.errors.push({
+                                        fieldId: document.forms[formId][i].id,
+                                        message: "Geçerli bir kart numarası giriniz"
+                                    });
                                 }
                                 break;
-                            
+
                             case "decimal":
                                 if (!this.validateDecimal(fieldId)) {
                                     this.paintBorderById(document.forms[formId][i].id, errorColor);
@@ -521,7 +536,7 @@ class formValidation {
                                 }
                                 //-> 14.55 gibi
                                 break;
-                            
+
                             case "phone":
                                 if (!this.validatePhoneNumber(fieldId)) {
                                     this.paintBorderById(document.forms[formId][i].id, errorColor);
@@ -732,8 +747,19 @@ class formValidation {
     }
 
     // -> With Turkish Characters Support
+    validateAlphaWithSpacePoint(fieldId) {
+        let letters = /^[A-Za-zığüşöçİĞÜŞÖÇ .]+$/;
+        if (document.getElementById(fieldId).value.match(letters)) {
+            return true; // -> Valid
+        }
+        else {
+            return false;
+        }
+    }
+
+    // -> With Turkish Characters Support
     validateAdress(fieldId) {
-        let letters = /^[A-Za-zığüşöçİĞÜŞÖÇ .,/-\\:;"'()]+$/;
+        let letters = /^[A-Za-zığüşöçİĞÜŞÖÇ .,/-\\:;"'()&]+$/;
         if (document.getElementById(fieldId).value.match(letters)) {
             return true; // -> Valid
         }
@@ -744,7 +770,7 @@ class formValidation {
 
     // -> With Turkish Characters Support
     validateParagraph(fieldId) {
-        let letters = /^[A-Za-zığüşöçİĞÜŞÖÇ .,/-\\:;"'()]+$/;
+        let letters = /^[A-Za-zığüşöçİĞÜŞÖÇ .,/-\\:;"'()&]+$/;
         if (document.getElementById(fieldId).value.match(letters)) {
             return true; // -> Valid
         }
