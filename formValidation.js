@@ -246,8 +246,7 @@ class formValidation {
             if (
                 document.getElementById(fieldId).type != "hidden" &&
                 document.getElementById(fieldId).type != "submit" &&
-                document.getElementById(fieldId).localName != "button" &&
-                document.getElementById(fieldId).disabled != true
+                document.getElementById(fieldId).localName != "button"
             ) {
                 if (errorColor == "") {
                     document.getElementById(fieldId).style.border = "";
@@ -294,6 +293,8 @@ class formValidation {
         this.errors = [];
         let fieldId = "";
 
+
+
         for (let i = 0; i < document.forms[formId].length; i++) {
 
             if (document.forms[formId][i] == null || document.forms[formId][i].id == "") {
@@ -302,12 +303,9 @@ class formValidation {
 
             fieldId = document.forms[formId][i].id;
 
+            this.paintBorderById(fieldId, ""); //-> Set Default Border Color: None
 
             if (this.checkRequiredField(document.forms[formId][i].id)) {
-
-                this.paintBorderById(fieldId, ""); //-> Set Default Border Color: None
-
-                //if (document.forms[formId][i].validity.valid) {
 
                 let minLength, maxLength;
                 let value = document.forms[formId][i].value;
@@ -320,6 +318,7 @@ class formValidation {
                             fieldId: document.forms[formId][i].id,
                             message: "Veri çok kısa"
                         });
+                        continue;
                     }
                 }
 
@@ -331,6 +330,7 @@ class formValidation {
                             fieldId: document.forms[formId][i].id,
                             message: "Veri çok uzun"
                         });
+                        continue;
                     }
                 }
 
@@ -340,12 +340,11 @@ class formValidation {
                     document.forms[formId][i].className.includes("select2")
                 ) {
                     //-> or document.forms[formId][i][0].validity.valid kontrolü
-                    if(document.forms[formId][i].value == ""){
+                    if (document.forms[formId][i].value == "") {
                         this.paintBorderById(document.forms[formId][i].id, errorColor);
                         continue;
                     }
                 }
-
 
                 //-> Burada aşağıdaki validationlar olacak.
                 //-> Bu validationlardan dönen sonuca göre bir durum olacak.
@@ -363,17 +362,18 @@ class formValidation {
                                     fieldId: document.forms[formId][i].id,
                                     message: "Geçerli bir url giriniz"
                                 });
+                                continue;
                             }
                             break;
 
                         case "email":
-                            console.log("Kontol dilecekk değer : " + fieldId);
                             if (!this.validateEmail(fieldId)) {
                                 this.paintBorderById(document.forms[formId][i].id, errorColor);
                                 this.errors.push({
                                     fieldId: document.forms[formId][i].id,
                                     message: "Geçerli bir email giriniz"
                                 });
+                                continue;
                             }
                             break;
 
@@ -384,6 +384,7 @@ class formValidation {
                                     fieldId: document.forms[formId][i].id,
                                     message: "Geçerli bir sayı giriniz"
                                 });
+                                continue;
                             }
                             break;
 
@@ -394,6 +395,7 @@ class formValidation {
                                     fieldId: document.forms[formId][i].id,
                                     message: "Geçerli bir sayı giriniz"
                                 });
+                                continue;
                             }
                             break;
 
@@ -404,6 +406,7 @@ class formValidation {
                                     fieldId: document.forms[formId][i].id,
                                     message: "Sadece harf giriniz"
                                 });
+                                continue;
                             }
                             break;
 
@@ -414,6 +417,7 @@ class formValidation {
                                     fieldId: document.forms[formId][i].id,
                                     message: "Sadece harf ve boşluk kullanabilirsiniz"
                                 });
+                                continue;
                             }
                             break;
 
@@ -424,6 +428,7 @@ class formValidation {
                                     fieldId: document.forms[formId][i].id,
                                     message: "Sadece harf, boşluk ve nokta kullanabilirsiniz"
                                 });
+                                continue;
                             }
                             break;
 
@@ -434,6 +439,7 @@ class formValidation {
                                     fieldId: document.forms[formId][i].id,
                                     message: "Sadece harf, sayı, boşluk ve .,/-\\:;\"'() karakterleri girebilirsiniz"
                                 });
+                                continue;
                             }
                             break;
 
@@ -444,6 +450,7 @@ class formValidation {
                                     fieldId: document.forms[formId][i].id,
                                     message: "Sadece harf ve sayı kullanabilirsiniz"
                                 });
+                                continue;
                             }
                             break;
 
@@ -454,6 +461,7 @@ class formValidation {
                                     fieldId: document.forms[formId][i].id,
                                     message: "Sadece harf, sayı ve boşluk kullanabilirsiniz"
                                 });
+                                continue;
                             }
                             break;
 
@@ -464,6 +472,7 @@ class formValidation {
                                     fieldId: document.forms[formId][i].id,
                                     message: "Sadece harf, sayı, boşluk ve tire(-) kullanabilirsiniz"
                                 });
+                                continue;
                             }
                             break;
 
@@ -474,6 +483,7 @@ class formValidation {
                                     fieldId: document.forms[formId][i].id,
                                     message: "Sadece harf, sayı, boşluk ve .,/-\\:;\"'() karakterleri girebilirsiniz"
                                 });
+                                continue;
                             }
                             break;
 
@@ -484,6 +494,7 @@ class formValidation {
                                     fieldId: document.forms[formId][i].id,
                                     message: "Geçerli bir ip adresi giriniz (Ör: 198.149.24.45)"
                                 });
+                                continue;
                             }
                             break;
 
@@ -494,6 +505,7 @@ class formValidation {
                                     fieldId: document.forms[formId][i].id,
                                     message: "Geçerli bir American Express kart numarası giriniz"
                                 });
+                                continue;
                             }
                             break;
 
@@ -504,6 +516,7 @@ class formValidation {
                                     fieldId: document.forms[formId][i].id,
                                     message: "Geçerli bir Master Kart numarası giriniz"
                                 });
+                                continue;
                             }
                             break;
 
@@ -514,6 +527,7 @@ class formValidation {
                                     fieldId: document.forms[formId][i].id,
                                     message: "Geçerli bir Visa Kart numarası giriniz"
                                 });
+                                continue;
                             }
                             break;
 
@@ -531,6 +545,7 @@ class formValidation {
                                     fieldId: document.forms[formId][i].id,
                                     message: "Geçerli bir kart numarası giriniz"
                                 });
+                                continue;
                             }
                             break;
 
@@ -552,6 +567,7 @@ class formValidation {
                                     fieldId: document.forms[formId][i].id,
                                     message: "Geçerli bir telefon giriniz"
                                 });
+                                continue;
                             }
                             break;
                     }
@@ -562,7 +578,7 @@ class formValidation {
                             fieldId: document.forms[formId][i].id,
                             message: "Geçersiz"
                         });
-                    } 
+                    }
                 }//if
 
             }
