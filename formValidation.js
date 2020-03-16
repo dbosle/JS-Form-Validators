@@ -414,7 +414,7 @@ class formValidation {
                                     this.paintBorderById(document.forms[formId][i].id, errorColor);
                                     this.errors.push({
                                         fieldId: document.forms[formId][i].id,
-                                        message: "Sadece harf ve boşluk kullanabilirsiniz"
+                                        message: "Sadece harf, boşluk ve nokta kullanabilirsiniz"
                                     });
                                 }
                                 break;
@@ -538,7 +538,7 @@ class formValidation {
                                 break;
 
                             case "phone":
-                                if (!this.validatePhoneNumber(fieldId)) {
+                                if (!this.validateAlphaNumeric(fieldId)) {
                                     this.paintBorderById(document.forms[formId][i].id, errorColor);
                                     this.errors.push({
                                         fieldId: document.forms[formId][i].id,
