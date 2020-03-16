@@ -27,6 +27,7 @@ data-valid="numeric"           //-> Numeric
 data-valid="numericplusminus"  //-> Numeric, + and -
 data-valid="word"              //-> Alphabetical
 data-valid="sentence"          //-> Alphabetical and space
+data-valid="sentencepoint"     //-> Alphabetical, space and point
 data-valid="paragraph"         //-> Alphabetical, numeric, space .,/-\\:;\"'()
 data-valid="alphanum"          //-> Alphabetical, numeric
 data-valid="alphanumspace"     //-> Alphabetical, numeric, space
