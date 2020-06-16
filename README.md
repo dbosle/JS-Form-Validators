@@ -1,6 +1,8 @@
 # JS Form Validation Class
 Javascript Form Validator
 
+select2, eğer value'sunda değer yoksa, yani value == "" ise kırmızıya döner.
+
 ## Usage
 * Add following lines to your page.
 ```
